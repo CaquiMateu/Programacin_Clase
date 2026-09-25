@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class PickUpScript : MonoBehaviour
 {
@@ -7,7 +8,7 @@ public class PickUpScript : MonoBehaviour
 
     public GameObject player;
     public Transform holdPos;
-   
+    public int layerorginal;
     public float FuerzaDeLanzamiento = 500f; 
     public float RangoParaCogerObjeto = 5f; 
     private float SensibilidadDeRotacion = 2f; 
@@ -21,10 +22,13 @@ public class PickUpScript : MonoBehaviour
     public TextMeshProUGUI ObjName;
     public GameObject ObjNamePanel;
     RaycastHit hit;
-
+    int LayerOriginalPlayer;
+    
+    
     void Start()
     {
-        LayerNumber = LayerMask.NameToLayer("holdLayer"); 
+        LayerOriginalPlayer = LayerMask.NameToLayer("Player");
+        LayerNumber = LayerMask.NameToLayer("Hold_Layer"); 
         ObjNamePanel.SetActive(false);
     }
     void Update()
@@ -40,7 +44,8 @@ public class PickUpScript : MonoBehaviour
                     
                     if (hit.transform.gameObject.tag == "CanPickUp")
                     {
-                        
+                       
+                    
                         PickUpObject(hit.transform.gameObject);
                         ObjNamePanel.SetActive(true);
                     }
@@ -84,6 +89,8 @@ public class PickUpScript : MonoBehaviour
     {
         if (pickUpObj.GetComponent<Rigidbody>()) 
         {
+            
+            layerorginal = hit.collider.gameObject.layer;
             ObjName.text = hit.transform.gameObject.name;
             ObjAgarrado = pickUpObj; 
             ObjAgarradoRb = pickUpObj.GetComponent<Rigidbody>(); 
@@ -96,12 +103,15 @@ public class PickUpScript : MonoBehaviour
     }
     void DropObject()
     {
-       ObjNamePanel.SetActive(false);
+        ObjNamePanel.SetActive(false);
         Physics.IgnoreCollision(ObjAgarrado.GetComponent<Collider>(), player.GetComponent<Collider>(), false);
-        ObjAgarrado.layer = 0; 
+        ObjAgarrado.layer = layerorginal; 
         ObjAgarradoRb.isKinematic = false;
         ObjAgarrado.transform.parent = null; 
-        ObjAgarrado = null; 
+        ObjAgarrado = null;
+        hit.collider.gameObject.layer = layerorginal;
+        player.layer = 6;
+        StartCoroutine(DevolverALaCapaOriginal());
     }
     void MoveObject()
     {
@@ -133,13 +143,15 @@ public class PickUpScript : MonoBehaviour
     {
         ObjNamePanel.SetActive(false);
         Physics.IgnoreCollision(ObjAgarrado.GetComponent<Collider>(), player.GetComponent<Collider>(), false);
-        ObjAgarrado.layer = 0;
+        ObjAgarrado.layer = layerorginal;
         ObjAgarradoRb.isKinematic = false;
         ObjAgarrado.transform.parent = null;
         ObjAgarradoRb.AddForce(transform.forward * FuerzaDeLanzamiento * TiempoActualDeCarga);
         ObjAgarrado = null;
         isCharging = false;
         TiempoActualDeCarga = 1f;
+        player.layer = 6;
+        StartCoroutine(DevolverALaCapaOriginal());
     }
     void StopClipping() 
     {
@@ -158,6 +170,12 @@ public class PickUpScript : MonoBehaviour
     void StartTimer()
     {
         isCharging = true;
+    }
+    
+    IEnumerator DevolverALaCapaOriginal()
+    {
+        yield return new WaitForSeconds(0.5f);
+        player .layer = LayerOriginalPlayer;
     }
 }
 
