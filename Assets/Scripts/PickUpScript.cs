@@ -1,11 +1,13 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PickUpScript : MonoBehaviour
 {
-  
-
+    public TextMeshProUGUI NúmeroDeElementosEnCaja;
+    public GameObject CajaPanel;
+    public CajaController cajaController;
     public GameObject player;
     public Transform holdPos;
     public int layerorginal;
@@ -23,16 +25,30 @@ public class PickUpScript : MonoBehaviour
     public GameObject ObjNamePanel;
     RaycastHit hit;
     int LayerOriginalPlayer;
-    
-    
+
+    public Image Puntero;
+    Color OriginalPunteroColor;
+
     void Start()
     {
+        OriginalPunteroColor = Puntero.color;
         LayerOriginalPlayer = LayerMask.NameToLayer("Player");
         LayerNumber = LayerMask.NameToLayer("Hold_Layer"); 
         ObjNamePanel.SetActive(false);
+        CajaPanel.SetActive(false);
     }
     void Update()
     {
+        if (cajaController != null)
+        {
+            NúmeroDeElementosEnCaja.text = cajaController.Cantidad_Productos_ACTUAL.ToString() + "/" + cajaController.Cantidad_Productos_MAX.ToString();
+
+           
+        }
+
+       
+       
+
         if (Input.GetKeyDown(KeyCode.E)) 
         {
             if (ObjAgarrado == null) 
@@ -45,10 +61,12 @@ public class PickUpScript : MonoBehaviour
                     if (hit.transform.gameObject.tag == "CanPickUp")
                     {
                        
-                    
+                       cajaController = hit.transform.gameObject.GetComponent<CajaController>();
                         PickUpObject(hit.transform.gameObject);
                         ObjNamePanel.SetActive(true);
                     }
+
+                    
                 }
             }
             else
@@ -60,17 +78,70 @@ public class PickUpScript : MonoBehaviour
                 }
             }
         }
+
+       
+        if (ObjAgarrado == null)
+        {
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, RangoParaCogerObjeto))
+            {
+
+                if (hit.transform.gameObject.tag == "CanPickUp")
+                {
+                    Puntero.color = Color.green;
+
+                }
+                else
+                {
+                    Puntero.color = OriginalPunteroColor;
+                }
+
+            }
+            else
+            {
+                Puntero.color = OriginalPunteroColor;
+            }
+
+        }   
+        else
+        {
+            if (cajaController != null)
+            {
+                
+                if (cajaController.Agarrado == false)
+                {
+                    Puntero.color = OriginalPunteroColor;
+                }
+                else
+                {
+                    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, RangoParaCogerObjeto))
+                    {
+                        if (hit.transform.gameObject.tag == "Estante")
+                        {
+                            Puntero.color = Color.orange;
+                        }
+                    }
+                    else
+                    {
+                        Puntero.color = OriginalPunteroColor;
+                    }
+
+                }
+            }
+           
+        }
+
+
         if (ObjAgarrado != null) 
         {
             MoveObject(); 
             RotateObject();
-            if (Input.GetKeyDown(KeyCode.Mouse0) && canDrop == true) 
+            if (Input.GetKeyDown(KeyCode.Mouse1) && canDrop == true) 
             {
                 StopClipping();
                 StartTimer();
                 
             }
-            if (Input.GetKeyUp(KeyCode.Mouse0) && canDrop == true)
+            if (Input.GetKeyUp(KeyCode.Mouse1) && canDrop == true)
             {
                 ThrowObject();
             }
@@ -89,7 +160,10 @@ public class PickUpScript : MonoBehaviour
     {
         if (pickUpObj.GetComponent<Rigidbody>()) 
         {
-            
+            if (cajaController != null)
+            {
+                ActivarCaja();
+            }
             layerorginal = hit.collider.gameObject.layer;
             ObjName.text = hit.transform.gameObject.name;
             ObjAgarrado = pickUpObj; 
@@ -103,13 +177,16 @@ public class PickUpScript : MonoBehaviour
     }
     void DropObject()
     {
+        if (cajaController != null)
+        {
+            DesactivarCaja();
+        }
         ObjNamePanel.SetActive(false);
         Physics.IgnoreCollision(ObjAgarrado.GetComponent<Collider>(), player.GetComponent<Collider>(), false);
         ObjAgarrado.layer = layerorginal; 
         ObjAgarradoRb.isKinematic = false;
         ObjAgarrado.transform.parent = null; 
         ObjAgarrado = null;
-        hit.collider.gameObject.layer = layerorginal;
         player.layer = 6;
         StartCoroutine(DevolverALaCapaOriginal());
     }
@@ -141,6 +218,10 @@ public class PickUpScript : MonoBehaviour
     }
     void ThrowObject()
     {
+        if (cajaController != null)
+        {
+            DesactivarCaja();
+        }
         ObjNamePanel.SetActive(false);
         Physics.IgnoreCollision(ObjAgarrado.GetComponent<Collider>(), player.GetComponent<Collider>(), false);
         ObjAgarrado.layer = layerorginal;
@@ -176,6 +257,25 @@ public class PickUpScript : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         player .layer = LayerOriginalPlayer;
+    }
+
+    void ActivarCaja()
+    {
+        if (cajaController != null)
+        {
+            cajaController.Agarrado = true;
+            CajaPanel.SetActive(true);
+        }
+    }
+
+    void DesactivarCaja()
+    {
+        if (cajaController != null)
+        {
+            cajaController.Agarrado = false;
+            cajaController = null;
+            CajaPanel.SetActive(false);
+        }
     }
 }
 
