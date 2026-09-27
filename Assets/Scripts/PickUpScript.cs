@@ -5,30 +5,38 @@ using UnityEngine.UI;
 
 public class PickUpScript : MonoBehaviour
 {
-    public TextMeshProUGUI NúmeroDeElementosEnCaja;
-    public GameObject CajaPanel;
+    [Header("Ref. Otros Scripts")]
+    public EstanteController estanteController;
     public CajaController cajaController;
+
+    [Header("UI")]
+    public TextMeshProUGUI NúmeroDeElementosEnCaja; 
+    public TextMeshProUGUI ObjName;
+    public GameObject CajaPanel;
+    public GameObject ObjNamePanel;
+    public Image Puntero;
+    Color OriginalPunteroColor;
+    [Header("GameObjects")]
     public GameObject player;
-    public Transform holdPos;
-    public int layerorginal;
+    public GameObject ObjAgarrado;
+
+    [Header("Layers")]
+    public int layerorginal; 
+    private int LayerNumber;
+    int LayerOriginalPlayer;
+
+    [Header("Variables Con Objeto Agarrado")]
     public float FuerzaDeLanzamiento = 500f; 
     public float RangoParaCogerObjeto = 5f; 
     private float SensibilidadDeRotacion = 2f; 
-    public GameObject ObjAgarrado; 
+    public Transform holdPos;
     private Rigidbody ObjAgarradoRb; 
     private bool canDrop = true; 
-    private int LayerNumber; 
     public bool Rotando = false;
     public float TiempoActualDeCarga = 1f;
     bool isCharging = false;
-    public TextMeshProUGUI ObjName;
-    public GameObject ObjNamePanel;
     RaycastHit hit;
-    int LayerOriginalPlayer;
-
-    public Image Puntero;
-    Color OriginalPunteroColor;
-
+  
     void Start()
     {
         OriginalPunteroColor = Puntero.color;
@@ -39,6 +47,11 @@ public class PickUpScript : MonoBehaviour
     }
     void Update()
     {
+        if (cajaController != null && estanteController != null)
+        {
+            estanteController.productoColocado = cajaController.OtroProductoPuesto;
+        }
+
         if (cajaController != null)
         {
             NúmeroDeElementosEnCaja.text = cajaController.Cantidad_Productos_ACTUAL.ToString() + "/" + cajaController.Cantidad_Productos_MAX.ToString();
@@ -118,11 +131,37 @@ public class PickUpScript : MonoBehaviour
                         if (hit.transform.gameObject.tag == "Estante")
                         {
                             Puntero.color = Color.orange;
+                            estanteController = hit.transform.gameObject.GetComponent<EstanteController>();
+                            cajaController.EstantePos = hit.transform;
+                            
+                                if (estanteController != null)
+                                {
+                                    
+                                    if (estanteController.lleno == false)
+                                    {
+                                        cajaController.Interactuarble = true;
+                                    }
+                                    else
+                                    {
+                                        cajaController.Interactuarble = false;
+                                    }
+                                }
+                                else
+                                {
+                                    estanteController = null;
+                                }
+                            
+
+                        }
+                        else
+                        {
+                            cajaController.Interactuarble = false;
                         }
                     }
                     else
                     {
                         Puntero.color = OriginalPunteroColor;
+                        estanteController = null;
                     }
 
                 }

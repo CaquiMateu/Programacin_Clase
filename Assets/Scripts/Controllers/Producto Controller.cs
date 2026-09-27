@@ -2,17 +2,19 @@ using UnityEngine;
 
 public class ProductoController : MonoBehaviour
 {
+    [Header("Variables")]
     public string NombreProducto;
     public float valorDelProducto = 0.0f;
 
+    [Header("Modo Estante")]
     public GameObject ModoEstante;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+  
     void Start()
     {
       gameObject.name = NombreProducto;
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         

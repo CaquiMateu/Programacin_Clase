@@ -2,10 +2,22 @@ using UnityEngine;
 
 public class CajaController : MonoBehaviour
 {
-    public string NombreCaja;
+    [Header("Variables Numéricas")]
     public int Cantidad_Productos_MAX = 0;
     public int Cantidad_Productos_ACTUAL = 0;
+
+    [Header("Variables de Posición")]
+    public Transform EstantePos;
+
+    [Header("Bools")]
+    public bool Interactuarble = false; 
     public bool Agarrado = false;
+    public bool OtroProductoPuesto = false;
+
+    [Header("Variables de Texto")]
+    public string NombreCaja;
+
+    [Header("GameObjects")]
     public GameObject Producto;
 
     private void Start()
@@ -20,12 +32,25 @@ public class CajaController : MonoBehaviour
 
         if (Agarrado == true)
         {
-            if (Cantidad_Productos_ACTUAL > 0 && Antibucle == false && Input.GetKeyDown(KeyCode.Mouse0)) 
+            if (Interactuarble == true && OtroProductoPuesto == false)
             {
-                Instantiate(Producto, transform.position + transform.forward * 1.5f, Quaternion.identity);
-                Cantidad_Productos_ACTUAL--;
-                Antibucle = true;
+                
+                if (Cantidad_Productos_ACTUAL > 0 && Antibucle == false && Input.GetKeyDown(KeyCode.Mouse0)) 
+                {
+                    Instantiate(Producto, EstantePos.position, Quaternion.identity);
+                    Cantidad_Productos_ACTUAL--;
+                    Antibucle = true;
+                }
+            }
+            else
+            {
+                EstantePos = null;
             }
         }
     }
 }
+
+            
+        
+    
+

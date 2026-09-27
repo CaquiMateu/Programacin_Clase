@@ -3,21 +3,24 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Variables de Movimiento")]
     public float SpeedToAply = 4;
     public float MaxSpeed = 4;
-
     public float rotationSpeed = 10;
+    private float xrotationpivot;
 
-    //Este es el objeto que rota de arriba a abajo
+    [Header("Transform")]
     public Transform pivot;
 
-    private float xrotationpivot;
+    [Header("Rigidbody")]
     public Rigidbody rb;
+
+    [Header("Ref. Otros Scripts")]
     public PickUpScript pickUpScript;
 
     Vector3 input;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
     void Start()
     {
         rb = GetComponent<Rigidbody>();
