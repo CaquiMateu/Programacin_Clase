@@ -11,7 +11,8 @@ public class ProductoController : MonoBehaviour
   
     void Start()
     {
-      gameObject.name = NombreProducto;
+        // Asignar el nombre del producto al GameObject
+        gameObject.name = NombreProducto;
     }
 
     

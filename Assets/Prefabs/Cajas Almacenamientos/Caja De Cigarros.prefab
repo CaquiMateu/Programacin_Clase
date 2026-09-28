@@ -69,7 +69,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 09b29bce2b0bede45a60b1e356a189c5, type: 2}
+  - {fileID: 2100000, guid: 42039b8f4eb9a6a4c9504ad0579a90a4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -155,5 +155,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CajaController
   Cantidad_Productos_MAX: 20
   Cantidad_Productos_ACTUAL: 0
+  EstantePos: {fileID: 0}
+  Interactuarble: 0
   Agarrado: 0
+  OtroProductoPuesto: 0
+  NombreCaja: 
+  NombreProducto: Cajetilla de cigarros
   Producto: {fileID: 4038051594352464088, guid: 488154242c048144f980f37a2bf54814, type: 3}

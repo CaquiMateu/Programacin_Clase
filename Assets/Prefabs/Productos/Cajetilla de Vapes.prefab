@@ -153,6 +153,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a1fe4726e06b374c96e40f155772748, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProductoController
-  NombreProducto: Cajetilla de vapes
+  NombreProducto: Cajetilla de Vapes
   valorDelProducto: 0
   ModoEstante: {fileID: 4038051594352464088, guid: 39e907afe0315e444b6ef75353f6fce0, type: 3}

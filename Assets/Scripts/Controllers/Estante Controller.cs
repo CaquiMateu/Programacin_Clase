@@ -13,7 +13,7 @@ public class EstanteController : MonoBehaviour
     [Header("Bools")]
     public bool lleno = false;
     public bool vacio = true;
-    public bool productoColocado = false;
+    
 
     [Header("Variables de Texto")]
 
@@ -21,13 +21,18 @@ public class EstanteController : MonoBehaviour
 
     void Start()
     {
+        // Establecer el tamaño del array de productos en estante según la cantidad de espacios disponibles
         posicionActual = 0;
+        //Indicar que el estante está vacío al inicio
         vacio = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        #region ¿Está vacío el estante?
+
+        // Verificar si el estante está vacío
         if (posicionActual == 0)
         {
             vacio = true;
@@ -35,8 +40,15 @@ public class EstanteController : MonoBehaviour
         else
         {
             vacio = false;
+            
         }
 
+        #endregion
+
+        #region ¿Está lleno el estante?
+
+        // Verificar si el estante está lleno. Pra esto revisar si la posición actual es mayor o igual a la cantidad de espacios disponibles.
+        // Si lo es, entonces el estante está lleno. Si no, entonces el estante no está lleno.
         if (posicionActual >= EspaciosParaProductos.Length)
         {
             gameObject.GetComponent<Collider>().isTrigger = false;
@@ -46,49 +58,50 @@ public class EstanteController : MonoBehaviour
         {
             gameObject.GetComponent<Collider>().isTrigger = true;
         }
+
+        #endregion
     }
-    
+
     private void OnTriggerEnter(Collider other)
     {
-       
+
+        // Verificar si el objeto que entra en el trigger tiene un componente ProductoController
         if (other.gameObject.GetComponent<ProductoController>() != null)
         {
-            if (vacio == true)
+            
+
+
+            // Instanciar el producto en el estante en la posición correspondiente
+            GameObject productoInstaurado = other.gameObject.GetComponent<ProductoController>().ModoEstante;
+
+            if (nombreDelProductoEnEstante == "null")
             {
                 nombreDelProductoEnEstante = other.gameObject.GetComponent<ProductoController>().NombreProducto;
             }
-            else 
-            {
-                if (nombreDelProductoEnEstante != other.gameObject.GetComponent<ProductoController>().NombreProducto)
-                {
-                    Debug.Log("No se puede colocar un producto diferente en el estante");
-                    productoColocado = true;
-                    return;
-                }
-                else
-                {
-                    productoColocado = false;
-                }
-                    
-            }
-            GameObject productoInstaurado = other.gameObject.GetComponent<ProductoController>().ModoEstante;
 
+            #region Instanciar el producto en el estante
+            // Verificar si hay espacio en el estante antes de instanciar el producto
             if (posicionActual >= EspaciosParaProductos.Length)
             {
+                // Si no hay espacio, mostrar un mensaje en la consola y no lee más código
                 Debug.Log("No hay más espacio en el estante");
                 return;
             }
             else
             {
-                
+                // Instanciar el producto en la posición correspondiente del estante
                 Instantiate(productoInstaurado, EspaciosParaProductos[posicionActual].position,Quaternion.Euler(0,90,0));
+                // Aumentar el índice de posición actual para el siguiente producto
                 SumarÍndice();
+                // Guardar el producto instanciado en el array de productos en estante
                 Array.Resize(ref ProductosEnEstante, posicionActual);
                 ProductosEnEstante[posicionActual - 1] = productoInstaurado;
-
+                // Destruir el objeto original que se colocó en el estante
                 Destroy(other.gameObject);
+
+               
             }
-            
+            #endregion
         }
     }
 

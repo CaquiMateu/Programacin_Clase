@@ -13,6 +13,7 @@ public class GameManagerController : MonoBehaviour
 
     void Update()
     {
+        #region Recuperar el ratón con Escape
         // Opcional: Si el jugador pulsa Escape, recupera el ratón (útil para menús de pausa)
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -20,5 +21,6 @@ public class GameManagerController : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
+        #endregion
     }
 }
