@@ -141,7 +141,23 @@ public class PickUpScript : MonoBehaviour
                         Puntero.color = OriginalPunteroColor;
                     }
 
-                }
+                    if (hit.transform.gameObject.tag == "Estante")
+                    {
+                        estanteController = hit.transform.gameObject.GetComponent<EstanteController>();
+                        
+                       if (estanteController.vacio == false)
+                       {
+                          Puntero.color = Color.yellow;
+
+                        if (Input.GetKeyDown(KeyCode.Q))
+                        {
+                            estanteController.generarcajas.GenerarCajaDeRecogida();
+                        }
+                       }
+                       
+                    }
+
+            }
                 else
                 {
                     Puntero.color = OriginalPunteroColor;
@@ -166,12 +182,69 @@ public class PickUpScript : MonoBehaviour
                             // Si el objeto detectado tiene la etiqueta "Estante", cambiar el color del puntero a naranja y actualizar las referencias del estante y la caja
                             if (hit.transform.gameObject.tag == "Estante")
                             {
+                                GenerarCajas generarCajas;
                                 // Cambiar el color del puntero a naranja para indicar que se puede colocar la caja en el estante
                                 Puntero.color = Color.orange;
                                 // Obtener el componente EstanteController del estante detectado
                                 estanteController = hit.transform.gameObject.GetComponent<EstanteController>();
-                                // Actualizar la posición del estante en el controlador de la caja
-                                cajaController.EstantePos = hit.transform;
+                                generarCajas = hit.transform.gameObject.GetComponent<GenerarCajas>();
+                               //Detecta si el estante está vacío
+                               if (estanteController.vacio == true)
+                               {
+                                //Ahora analiza si tiene un cajacontroller, si lo tiene le cambia el scirpt a una caja que se generará a lo lejos
+                                //Esto es para evitar posibles problemas de null reference
+                                if (estanteController.cajaController == null)
+                                {
+                                    estanteController.cajaController = cajaController;
+                                    if (generarCajas.cajaGenerada == false)
+                                    {
+
+                                        generarCajas.GenerarCaja();
+
+                                    }
+                                }
+                                //Si detecta que el nombre de la caja es distinto al de la caja que ha generado antes, la borra y se queda con el nuevo.
+                                else if (cajaController.NombreCaja != estanteController.cajaController.NombreCaja)
+                                {
+                                    generarCajas.cajacontroller = null;
+                                    Destroy(generarCajas.cajaGenerada);
+                                    estanteController.cajaController = cajaController;
+
+                                    if (generarCajas.cajaGenerada == false)
+                                    {
+
+                                        generarCajas.GenerarCaja();
+
+                                    }
+                                }
+                                
+                                 
+                               }
+                               else
+                               {
+                                  if (Input.GetKeyDown(KeyCode.Q))
+                                  {
+
+                                    if (estanteController.vacio == false && cajaController.Cantidad_Productos_MAX > cajaController.Cantidad_Productos_ACTUAL)
+                                    {
+                                        cajaController.Cantidad_Productos_ACTUAL++;
+                                        estanteController.RetirarProductoDelEstante();
+                                    }
+
+                                    
+
+                                  }
+                                 
+                                   
+
+
+                                 
+
+
+                               }
+
+                               // Actualizar la posición del estante en el controlador de la caja
+                               cajaController.EstantePos = hit.transform;
 
                                 // Verificar si el estante existe y si no está lleno para permitir la interacción con la caja
                                 if (estanteController != null)

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CajaController : MonoBehaviour
@@ -13,6 +14,7 @@ public class CajaController : MonoBehaviour
     public bool Interactuarble = false; 
     public bool Agarrado = false;
     public bool DiferenteProducto = false;
+    public bool SePuedeColocar = true;
 
     [Header("Variables de Texto")]
     public string NombreCaja;
@@ -48,12 +50,19 @@ public class CajaController : MonoBehaviour
                 // si no se ha instanciado un producto en este frame y si se presiona el botón izquierdo del mouse
                 if (Cantidad_Productos_ACTUAL > 0 && Antibucle == false && Input.GetKeyDown(KeyCode.Mouse0)) 
                 {
-                    // Instanciar el producto en la posición del estante con rotación por defecto
-                    Instantiate(Producto, EstantePos.position, Quaternion.identity);
-                    // Disminuir la cantidad actual de productos disponibles
-                    Cantidad_Productos_ACTUAL--;
-                    // Indicar que ya se ha instanciado un producto en este frame
-                    Antibucle = true;
+                    if (SePuedeColocar == true)
+                    {
+                        SePuedeColocar = false;
+                        // Instanciar el producto en la posición del estante con rotación por defecto
+                        Instantiate(Producto, EstantePos.position, Quaternion.identity);
+                        // Disminuir la cantidad actual de productos disponibles
+                        Cantidad_Productos_ACTUAL--;
+                        // Indicar que ya se ha instanciado un producto en este frame
+                        Antibucle = true;
+                        StartCoroutine(Espera());
+                    }
+
+                   
                 }
             }
             else
@@ -65,7 +74,15 @@ public class CajaController : MonoBehaviour
 
         #endregion
     }
+
+    IEnumerator Espera()
+    {
+        yield return new WaitForSeconds(0.1f);
+        SePuedeColocar = true;
+    }
 }
+
+
 
             
         

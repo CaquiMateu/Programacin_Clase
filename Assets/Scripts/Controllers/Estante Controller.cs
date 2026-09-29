@@ -3,7 +3,19 @@ using UnityEngine;
 
 public class EstanteController : MonoBehaviour
 {
-    [Header("Arrays")]
+
+    Transform GrupoADestruir;
+
+    [Header("Referencias A Otros Componentes")]
+    public CajaController cajaController;
+    public GenerarCajas generarcajas;
+    public VacíoController vacíoController;
+
+    [Header("GameObjects")]
+    public GameObject Vacío;
+    GameObject ProductoHijoDeVacio;
+
+   [Header("Arrays")]
     public Transform[] EspaciosParaProductos;
     public GameObject[] ProductosEnEstante;
 
@@ -21,6 +33,8 @@ public class EstanteController : MonoBehaviour
 
     void Start()
     {
+        Vacío = vacíoController.gameObject;
+        generarcajas = GetComponent<GenerarCajas>();
         // Establecer el tamaño del array de productos en estante según la cantidad de espacios disponibles
         posicionActual = 0;
         //Indicar que el estante está vacío al inicio
@@ -30,6 +44,15 @@ public class EstanteController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        #region Igualar Caja Controller
+        
+        //Actualiza el cajacontroller si detecta que es diferente al que debería tener;
+        if (cajaController != generarcajas.cajacontroller)
+        {
+            cajaController = generarcajas.cajacontroller;
+        }
+        #endregion
+
         #region ¿Está vacío el estante?
 
         // Verificar si el estante está vacío
@@ -43,6 +66,10 @@ public class EstanteController : MonoBehaviour
             
         }
 
+        if (vacio == true)
+        {
+            nombreDelProductoEnEstante = ("null");
+        }
         #endregion
 
         #region ¿Está lleno el estante?
@@ -89,13 +116,17 @@ public class EstanteController : MonoBehaviour
             }
             else
             {
+                GameObject VacioInstanciado = Instantiate(Vacío, transform.position, Quaternion.identity);
+                VacioInstanciado.name = vacíoController.nombre + posicionActual;
+                VacioInstanciado.transform.SetParent(this.gameObject.transform);
                 // Instanciar el producto en la posición correspondiente del estante
-                Instantiate(productoInstaurado, EspaciosParaProductos[posicionActual].position,Quaternion.Euler(0,90,0));
+                ProductoHijoDeVacio = Instantiate(productoInstaurado, EspaciosParaProductos[posicionActual].position,Quaternion.Euler(0,90,0));
+                ProductoHijoDeVacio.transform.SetParent(VacioInstanciado.transform);
                 // Aumentar el índice de posición actual para el siguiente producto
                 SumarÍndice();
                 // Guardar el producto instanciado en el array de productos en estante
                 Array.Resize(ref ProductosEnEstante, posicionActual);
-                ProductosEnEstante[posicionActual - 1] = productoInstaurado;
+                ProductosEnEstante[posicionActual - 1] = ProductoHijoDeVacio;
                 // Destruir el objeto original que se colocó en el estante
                 Destroy(other.gameObject);
 
@@ -103,6 +134,21 @@ public class EstanteController : MonoBehaviour
             }
             #endregion
         }
+    }
+
+    public void RetirarProductoDelEstante()
+    {
+        if (vacio == false)
+        {
+            
+            int NúmeroAAplicar = posicionActual - 1;
+            GrupoADestruir = this.gameObject.transform.Find("Vacío" + NúmeroAAplicar);
+            Destroy(GrupoADestruir.gameObject);
+            RestarÍndice();
+            Array.Resize(ref ProductosEnEstante, posicionActual);
+           
+        }
+        
     }
 
     void SumarÍndice()
@@ -115,5 +161,9 @@ public class EstanteController : MonoBehaviour
     {
         posicionActual--;
     }
+
+   
+    
+  
    
 }
