@@ -43,28 +43,32 @@ public class CajaController : MonoBehaviour
         // Verificar si hay un objeto agarrado
         if (Agarrado == true)
         {
-            // Verificar si el estante es interactuable y si no hay otro producto distinto ya puesto
-            if (Interactuarble == true && DiferenteProducto == false)
+            if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                // Verificar si hay productos disponibles para instanciar,
-                // si no se ha instanciado un producto en este frame y si se presiona el botón izquierdo del mouse
-                if (Cantidad_Productos_ACTUAL > 0 && Antibucle == false && Input.GetKeyDown(KeyCode.Mouse0)) 
+                // Verificar si el estante es interactuable y si no hay otro producto distinto ya puesto
+                if (Interactuarble == true && DiferenteProducto == false)
                 {
-                    if (SePuedeColocar == true)
+                    // Verificar si hay productos disponibles para instanciar,
+                    // si no se ha instanciado un producto en este frame y si se presiona el botón izquierdo del mouse
+                    if (Cantidad_Productos_ACTUAL > 0 && Antibucle == false)
                     {
-                        SePuedeColocar = false;
-                        // Instanciar el producto en la posición del estante con rotación por defecto
-                        Instantiate(Producto, EstantePos.position, Quaternion.identity);
-                        // Disminuir la cantidad actual de productos disponibles
-                        Cantidad_Productos_ACTUAL--;
-                        // Indicar que ya se ha instanciado un producto en este frame
-                        Antibucle = true;
-                        StartCoroutine(Espera());
-                    }
+                        if (SePuedeColocar == true)
+                        {
+                            SePuedeColocar = false;
+                            // Instanciar el producto en la posición del estante con rotación por defecto
+                            Instantiate(Producto, EstantePos.position, Quaternion.identity);
+                            // Disminuir la cantidad actual de productos disponibles
+                            Cantidad_Productos_ACTUAL--;
+                            // Indicar que ya se ha instanciado un producto en este frame
+                            Antibucle = true;
+                            StartCoroutine(Espera());
+                        }
 
-                   
+
+                    }
                 }
             }
+            
             else
             {
                 // Si el estante no es interactuable o si ya hay otro producto distinto puesto, se desactiva la referencia al estante
@@ -77,7 +81,7 @@ public class CajaController : MonoBehaviour
 
     IEnumerator Espera()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.001f);
         SePuedeColocar = true;
     }
 }

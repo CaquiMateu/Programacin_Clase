@@ -84,6 +84,7 @@ public class EstanteController : MonoBehaviour
         else
         {
             gameObject.GetComponent<Collider>().isTrigger = true;
+            lleno = false;
         }
 
         #endregion
