@@ -336,6 +336,10 @@ public class PickUpScript : MonoBehaviour
 
         #endregion
         }
+        else if (cajaController != null)
+        {
+            cajaController.DiferenteProducto = false;
+        }
         void PickUpObject(GameObject pickUpObj)
         {
             if (pickUpObj.GetComponent<Rigidbody>())
