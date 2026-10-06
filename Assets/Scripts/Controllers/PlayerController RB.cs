@@ -14,11 +14,14 @@ public class PlayerControllerRB : MonoBehaviour
     private float xrotationpivot;
     Vector3 input;
 
+    GroundChecker groundChecker;
+
     Rigidbody rb;
 
     void Start()
     {
-       GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
+      groundChecker = GetComponent<GroundChecker>();
     }
 
     // Update is called once per frame
@@ -31,9 +34,9 @@ public class PlayerControllerRB : MonoBehaviour
 
 
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && groundChecker == true)
         {
-            
+            rb.AddForce(Vector3.up * jumpforce, ForceMode.VelocityChange);
         }
 
        
@@ -52,7 +55,9 @@ public class PlayerControllerRB : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
+        Vector3 movement = input.normalized * Speed;
+        movement.y = rb.linearVelocity.y;
+        rb.linearVelocity = movement;
     }
 
 }
