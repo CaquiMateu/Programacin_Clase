@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class GameManagerController : MonoBehaviour
 {
+
+    public GameObject Tienda;
+
     void Start()
     {
         //Bloquea el ratón en el centro de la pantalla
@@ -22,5 +25,10 @@ public class GameManagerController : MonoBehaviour
             Cursor.visible = true;
         }
         #endregion
+
+        if (Input.GetKeyDown(KeyCode.H) && Tienda.activeInHierarchy == false)
+        {
+            Tienda.SetActive(true);
+        }
     }
 }

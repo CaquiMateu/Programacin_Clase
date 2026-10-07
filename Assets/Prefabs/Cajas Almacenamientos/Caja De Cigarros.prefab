@@ -158,7 +158,8 @@ MonoBehaviour:
   EstantePos: {fileID: 0}
   Interactuarble: 0
   Agarrado: 0
-  OtroProductoPuesto: 0
-  NombreCaja: 
+  DiferenteProducto: 0
+  SePuedeColocar: 1
+  NombreCaja: Caja De Cigarros
   NombreProducto: Cajetilla de cigarros
   Producto: {fileID: 4038051594352464088, guid: 488154242c048144f980f37a2bf54814, type: 3}
