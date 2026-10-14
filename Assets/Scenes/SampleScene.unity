@@ -421,7 +421,7 @@ GameObject:
   - component: {fileID: 128467985}
   - component: {fileID: 128467984}
   m_Layer: 5
-  m_Name: Text (Legacy) (25)
+  m_Name: ProductLista N26
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -579,7 +579,7 @@ GameObject:
   - component: {fileID: 210665650}
   - component: {fileID: 210665649}
   m_Layer: 5
-  m_Name: Text (Legacy) (20)
+  m_Name: ProductLista N21
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -821,7 +821,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 3.06
   m_Viewport: {fileID: 0}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 572920083}
@@ -882,7 +882,7 @@ GameObject:
   - component: {fileID: 271596657}
   - component: {fileID: 271596656}
   m_Layer: 5
-  m_Name: Text (Legacy) (3)
+  m_Name: ProductLista N4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1330,7 +1330,7 @@ GameObject:
   - component: {fileID: 406705967}
   - component: {fileID: 406705966}
   m_Layer: 5
-  m_Name: Text (Legacy) (15)
+  m_Name: ProductLista N16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1409,7 +1409,7 @@ GameObject:
   - component: {fileID: 407606648}
   - component: {fileID: 407606647}
   m_Layer: 5
-  m_Name: Text (Legacy) (16)
+  m_Name: ProductLista N17
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1647,7 +1647,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: "Assembly-CSharp::Bot\xF3nController"
   carritoController: {fileID: 0}
   Producto: {fileID: 266121922757004550, guid: 0be14f497286a97419b57ebe401a2903, type: 3}
-  NombreProducto: Cigarrillos
+  NombreProducto: Caja De Cigarros
   PuntoSpawn: {fileID: 0}
   Precio: 30
   TiendaProductos: {fileID: 0}
@@ -1664,7 +1664,7 @@ GameObject:
   - component: {fileID: 409677569}
   - component: {fileID: 409677568}
   m_Layer: 5
-  m_Name: Text (Legacy) (7)
+  m_Name: ProductLista N8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1870,7 +1870,7 @@ GameObject:
   - component: {fileID: 413249468}
   - component: {fileID: 413249467}
   m_Layer: 5
-  m_Name: Text (Legacy) (2)
+  m_Name: ProductLista N3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2266,7 +2266,7 @@ GameObject:
   - component: {fileID: 529817136}
   - component: {fileID: 529817135}
   m_Layer: 5
-  m_Name: Text (Legacy) (13)
+  m_Name: ProductLista N14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2381,7 +2381,7 @@ GameObject:
   - component: {fileID: 542295033}
   - component: {fileID: 542295032}
   m_Layer: 5
-  m_Name: Text (Legacy) (8)
+  m_Name: ProductLista N9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2586,7 +2586,7 @@ GameObject:
   - component: {fileID: 591440324}
   - component: {fileID: 591440323}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: ProductLista N1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2899,7 +2899,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: "Assembly-CSharp::Bot\xF3nController"
   carritoController: {fileID: 0}
   Producto: {fileID: 266121922757004550, guid: 6d5b51f3c2762054a9cf03d2b119b21b, type: 3}
-  NombreProducto: Vapes
+  NombreProducto: Caja De Vapes
   PuntoSpawn: {fileID: 0}
   Precio: 75
   TiendaProductos: {fileID: 0}
@@ -3028,7 +3028,7 @@ GameObject:
   - component: {fileID: 764989751}
   - component: {fileID: 764989750}
   m_Layer: 5
-  m_Name: Text (Legacy) (27)
+  m_Name: ProductLista N28
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3107,7 +3107,7 @@ GameObject:
   - component: {fileID: 767731837}
   - component: {fileID: 767731836}
   m_Layer: 5
-  m_Name: Text (Legacy) (11)
+  m_Name: ProductLista N12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3234,7 +3234,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CarritoController
   listaCarrito: {fileID: 1758536855}
   ProductosEnCarrito: []
+  CantidadDeProductos: 
   PreciosEnCarrito: []
+  CarritoBloqueado: 0
+  "N\xFAmeroEnLaLista": 1
 --- !u!1 &819617537
 GameObject:
   m_ObjectHideFlags: 0
@@ -3429,7 +3432,7 @@ GameObject:
   - component: {fileID: 890274932}
   - component: {fileID: 890274931}
   m_Layer: 5
-  m_Name: Text (Legacy) (22)
+  m_Name: ProductLista N23
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3539,7 +3542,7 @@ GameObject:
   - component: {fileID: 945484484}
   - component: {fileID: 945484483}
   m_Layer: 5
-  m_Name: Text (Legacy) (14)
+  m_Name: ProductLista N15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3689,7 +3692,7 @@ GameObject:
   - component: {fileID: 1068461447}
   - component: {fileID: 1068461446}
   m_Layer: 5
-  m_Name: Text (Legacy) (23)
+  m_Name: ProductLista N24
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3829,7 +3832,7 @@ GameObject:
   - component: {fileID: 1122077692}
   - component: {fileID: 1122077691}
   m_Layer: 5
-  m_Name: Text (Legacy) (10)
+  m_Name: ProductLista N11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4062,7 +4065,7 @@ GameObject:
   - component: {fileID: 1208557562}
   - component: {fileID: 1208557561}
   m_Layer: 5
-  m_Name: Text (Legacy) (19)
+  m_Name: ProductLista N20
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4141,7 +4144,7 @@ GameObject:
   - component: {fileID: 1238789202}
   - component: {fileID: 1238789201}
   m_Layer: 5
-  m_Name: Text (Legacy) (1)
+  m_Name: ProductLista N2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4352,7 +4355,7 @@ GameObject:
   - component: {fileID: 1366156390}
   - component: {fileID: 1366156389}
   m_Layer: 5
-  m_Name: Text (Legacy) (4)
+  m_Name: ProductLista N5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4431,7 +4434,7 @@ GameObject:
   - component: {fileID: 1414864709}
   - component: {fileID: 1414864708}
   m_Layer: 5
-  m_Name: Text (Legacy) (24)
+  m_Name: ProductLista N25
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4600,7 +4603,7 @@ GameObject:
   - component: {fileID: 1453051980}
   - component: {fileID: 1453051979}
   m_Layer: 5
-  m_Name: Text (Legacy) (6)
+  m_Name: ProductLista N7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4758,7 +4761,7 @@ GameObject:
   - component: {fileID: 1538298010}
   - component: {fileID: 1538298009}
   m_Layer: 5
-  m_Name: Text (Legacy) (12)
+  m_Name: ProductLista N13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4837,7 +4840,7 @@ GameObject:
   - component: {fileID: 1614342696}
   - component: {fileID: 1614342695}
   m_Layer: 5
-  m_Name: Text (Legacy) (17)
+  m_Name: ProductLista N18
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5168,7 +5171,7 @@ GameObject:
   - component: {fileID: 1729545735}
   - component: {fileID: 1729545734}
   m_Layer: 5
-  m_Name: Text (Legacy) (5)
+  m_Name: ProductLista N6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5376,36 +5379,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0303cf7280ea99e4dbec8acd28fad7c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ListaCarrito
-  ListaCarro:
-  - {fileID: 591440321}
-  - {fileID: 1238789199}
-  - {fileID: 413249465}
-  - {fileID: 271596654}
-  - {fileID: 1366156387}
-  - {fileID: 1729545732}
-  - {fileID: 1453051977}
-  - {fileID: 409677566}
-  - {fileID: 542295030}
-  - {fileID: 2142884030}
-  - {fileID: 1122077689}
-  - {fileID: 767731834}
-  - {fileID: 1538298007}
-  - {fileID: 529817133}
-  - {fileID: 945484481}
-  - {fileID: 406705964}
-  - {fileID: 407606645}
-  - {fileID: 1614342693}
-  - {fileID: 2039167371}
-  - {fileID: 1208557559}
-  - {fileID: 210665647}
-  - {fileID: 1885159145}
-  - {fileID: 890274929}
-  - {fileID: 1068461444}
-  - {fileID: 1414864706}
-  - {fileID: 128467982}
-  - {fileID: 1991213915}
-  - {fileID: 764989749}
-  CantidadProductos: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  ListaCarroObjetos: []
+  CantidadProductos: 
+  ListaCarroNombres: []
 --- !u!1 &1823573936
 GameObject:
   m_ObjectHideFlags: 0
@@ -5562,7 +5538,7 @@ GameObject:
   - component: {fileID: 1885159148}
   - component: {fileID: 1885159147}
   m_Layer: 5
-  m_Name: Text (Legacy) (21)
+  m_Name: ProductLista N22
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5888,7 +5864,7 @@ GameObject:
   - component: {fileID: 1991213918}
   - component: {fileID: 1991213917}
   m_Layer: 5
-  m_Name: Text (Legacy) (26)
+  m_Name: ProductLista N27
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5967,7 +5943,7 @@ GameObject:
   - component: {fileID: 2039167374}
   - component: {fileID: 2039167373}
   m_Layer: 5
-  m_Name: Text (Legacy) (18)
+  m_Name: ProductLista N19
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6205,7 +6181,7 @@ GameObject:
   - component: {fileID: 2142884033}
   - component: {fileID: 2142884032}
   m_Layer: 5
-  m_Name: Text (Legacy) (9)
+  m_Name: ProductLista N10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

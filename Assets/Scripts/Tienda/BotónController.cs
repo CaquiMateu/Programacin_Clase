@@ -24,9 +24,24 @@ public class BotónController : MonoBehaviour
     }
     public void AñadirProductoAlCarrito()
     {
-        carritoController.ProductosEnCarrito.Add(NombreProducto);
-        carritoController.PreciosEnCarrito.Add(Precio);
-       
+        if (carritoController.listaCarrito.ListaCarroNombres.Count <= 28)
+        {
+            if (carritoController.ProductosEnCarrito.Contains(NombreProducto))
+            {
+                carritoController.listaCarrito.ListaCarroObjetos.Add(Producto);
+            }
+            else
+            {
+                carritoController.GuardarProductoGameObject(Producto);
+                carritoController.ProductoNuevoEnElCarrito(NombreProducto, Precio);
+            }
+        }
+        else
+        {
+            Debug.Log("Carrito lleno");
+        }
+        
+
     }
     public void AbrirCarrito()
     {

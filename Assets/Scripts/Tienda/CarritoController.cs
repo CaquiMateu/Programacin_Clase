@@ -7,45 +7,88 @@ public class CarritoController : MonoBehaviour
 {
     public ListaCarrito listaCarrito;
     public List<string> ProductosEnCarrito;
+    public List<int> CantidadDeProductos;
     public List<float> PreciosEnCarrito;
-   
-    int Índice = 0;
+    Text ProductoAAñadir;
+    public bool CarritoBloqueado = false;
+    [SerializeField] int NúmeroEnLaLista = 1;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        Índice = 0;
-    }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (listaCarrito.gameObject.activeInHierarchy == true)
+        if (NúmeroEnLaLista >= 28)
         {
-            if (listaCarrito.ListaCarro[Índice].gameObject.GetComponent<Text>().text == "")
-            {
-                string item = ProductosEnCarrito[Índice];
-
-                ContarRepetidos(item);
-
-                
-
-                listaCarrito.ListaCarro[Índice].gameObject.GetComponent<Text>().text = item + " x" + listaCarrito.CantidadProductos[Índice].ToString() + " - $" + PreciosEnCarrito[Índice].ToString();
-            }
-        }
-    }
-
-    void ContarRepetidos(string nombre)
-    {
-        int cantidad = ProductosEnCarrito.Count(item => item == nombre);
-
-        if (cantidad > 1)
-        {
-            listaCarrito.CantidadProductos[Índice] = cantidad;
+            CarritoBloqueado = true;
         }
         else
         {
-            listaCarrito.CantidadProductos[Índice] = 1;
+            CarritoBloqueado = false;
         }
     }
+
+    public void ProductoNuevoEnElCarrito(string nombre, float precio)
+    {
+        if (CarritoBloqueado == true)
+        {
+            return;
+        }
+        else
+        {
+            ProductoAAñadir = listaCarrito.gameObject.transform.Find("ProductLista N" + NúmeroEnLaLista).GetComponent<Text>();
+        }
+        
+       if (ProductoAAñadir.text != "")
+       {
+            NúmeroEnLaLista++;
+            ProductoNuevoEnElCarrito(nombre, precio);
+            return;
+       }
+       else
+       {
+           
+           
+            ProductosEnCarrito.Add(nombre);
+            PreciosEnCarrito.Add(precio);
+            CantidadDeProductos.Add(1);
+            ProductoAAñadir.text = "x" + 1 + " " + nombre + " - $" + precio.ToString();
+        }
+       
+    }
+
+    public void ProductoYaExistenteEnElCarrito(string nombre, float precio)
+    {
+        int NumBuscador = 1;
+        string ProductoABuscar;
+
+        if (CarritoBloqueado == true)
+        {
+            return;
+        }
+        else
+        {
+            ProductoABuscar = listaCarrito.gameObject.transform.Find("ProductLista N" + NumBuscador).GetComponent<Text>().text;
+        }
+
+        if (ProductoABuscar != nombre)
+        {
+            NumBuscador++;
+            ProductoYaExistenteEnElCarrito(nombre, precio);
+            return;
+        }
+        else
+        {
+            int Cantidad = listaCarrito.ListaCarroObjetos.Count(nombreProducto => nombreProducto.name == ProductoABuscar);
+            ProductoABuscar = "x" + (1 + Cantidad) + " " + nombre + " - $" + (precio * (1 + Cantidad)).ToString();
+
+
+        }
+    }
+
+    public void GuardarProductoGameObject(GameObject producto)
+    {
+        listaCarrito.ListaCarroObjetos.Add(producto);
+    }
+    
+
+   
 }
