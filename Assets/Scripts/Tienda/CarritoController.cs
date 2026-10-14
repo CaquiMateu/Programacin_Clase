@@ -59,7 +59,7 @@ public class CarritoController : MonoBehaviour
     {
         int NumBuscador = 1;
         string ProductoABuscar;
-
+        
         if (CarritoBloqueado == true)
         {
             return;
@@ -69,7 +69,7 @@ public class CarritoController : MonoBehaviour
             ProductoABuscar = listaCarrito.gameObject.transform.Find("ProductLista N" + NumBuscador).GetComponent<Text>().text;
         }
 
-        if (ProductoABuscar != nombre)
+        if (ProductoABuscar != nombre && NumBuscador < 28)
         {
             NumBuscador++;
             ProductoYaExistenteEnElCarrito(nombre, precio);

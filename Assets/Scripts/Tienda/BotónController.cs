@@ -29,6 +29,7 @@ public class BotónController : MonoBehaviour
             if (carritoController.ProductosEnCarrito.Contains(NombreProducto))
             {
                 carritoController.listaCarrito.ListaCarroObjetos.Add(Producto);
+                carritoController.ProductoYaExistenteEnElCarrito(NombreProducto, Precio);
             }
             else
             {
