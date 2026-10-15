@@ -1,10 +1,13 @@
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
 
 public class CarritoController : MonoBehaviour
 {
+    public int Cantidad;
+    public GameObject Objectolista;
     public ListaCarrito listaCarrito;
     public List<string> ProductosEnCarrito;
     public List<int> CantidadDeProductos;
@@ -12,6 +15,7 @@ public class CarritoController : MonoBehaviour
     Text ProductoAAñadir;
     public bool CarritoBloqueado = false;
     [SerializeField] int NúmeroEnLaLista = 1;
+        public List<GameObject> ObjetosEnElCarrito;
 
 
     private void Update()
@@ -26,7 +30,7 @@ public class CarritoController : MonoBehaviour
         }
     }
 
-    public void ProductoNuevoEnElCarrito(string nombre, float precio)
+    public void ProductoNuevoEnElCarrito(string nombre, float precio, GameObject Producto)
     {
         if (CarritoBloqueado == true)
         {
@@ -34,19 +38,19 @@ public class CarritoController : MonoBehaviour
         }
         else
         {
-            ProductoAAñadir = listaCarrito.gameObject.transform.Find("ProductLista N" + NúmeroEnLaLista).GetComponent<Text>();
+            ProductoAAñadir = Objectolista.transform.Find("ProductLista N" + NúmeroEnLaLista).GetComponent<Text>();
         }
         
        if (ProductoAAñadir.text != "")
        {
             NúmeroEnLaLista++;
-            ProductoNuevoEnElCarrito(nombre, precio);
+            ProductoNuevoEnElCarrito(nombre, precio, Producto);
             return;
        }
        else
        {
-           
-           
+
+            ObjetosEnElCarrito.Add(Producto); 
             ProductosEnCarrito.Add(nombre);
             PreciosEnCarrito.Add(precio);
             CantidadDeProductos.Add(1);
@@ -55,7 +59,7 @@ public class CarritoController : MonoBehaviour
        
     }
 
-    public void ProductoYaExistenteEnElCarrito(string nombre, float precio)
+    public void ProductoYaExistenteEnElCarrito(string nombre, float precio, GameObject Producto)
     {
         int NumBuscador = 1;
         string ProductoABuscar;
@@ -66,27 +70,37 @@ public class CarritoController : MonoBehaviour
         }
         else
         {
-            ProductoABuscar = listaCarrito.gameObject.transform.Find("ProductLista N" + NumBuscador).GetComponent<Text>().text;
+            ObjetosEnElCarrito.Add(Producto);
+            ProductoABuscar = Objectolista.transform.Find("ProductLista N" + NumBuscador).GetComponent<Text>().text;
+            
         }
 
-        if (ProductoABuscar != nombre && NumBuscador < 28)
-        {
-            NumBuscador++;
-            ProductoYaExistenteEnElCarrito(nombre, precio);
-            return;
-        }
-        else
-        {
-            int Cantidad = listaCarrito.ListaCarroObjetos.Count(nombreProducto => nombreProducto.name == ProductoABuscar);
-            ProductoABuscar = "x" + (1 + Cantidad) + " " + nombre + " - $" + (precio * (1 + Cantidad)).ToString();
+        //if (ProductoABuscar != nombre && NumBuscador < 28)
+        //{
+        //    NumBuscador++;
+        //    ProductoYaExistenteEnElCarrito(nombre, precio);
+        //    return;
+        //}
+        //else
+        //{
+            Cantidad = ObjetosEnElCarrito.Count(nombreProducto => nombreProducto.name == nombre);
+            ProductoAAñadir.text = "x" +  Cantidad + " " + nombre + " - $" + (precio * (1 + Cantidad)).ToString();
+       
 
-
-        }
+        //}
     }
 
     public void GuardarProductoGameObject(GameObject producto)
     {
-        listaCarrito.ListaCarroObjetos.Add(producto);
+        if (listaCarrito.DiccionarioCarrito.ContainsKey(producto))
+        {
+            listaCarrito.DiccionarioCarrito[producto] = listaCarrito.DiccionarioCarrito[producto] + 1;
+        }
+        else
+        {
+            listaCarrito.DiccionarioCarrito.Add(producto, 1);
+        }
+        
     }
     
 

@@ -24,23 +24,30 @@ public class BotónController : MonoBehaviour
     }
     public void AñadirProductoAlCarrito()
     {
-        if (carritoController.listaCarrito.ListaCarroNombres.Count <= 28)
+        if (carritoController.ProductosEnCarrito.Contains(NombreProducto) == false)
         {
-            if (carritoController.ProductosEnCarrito.Contains(NombreProducto))
+            if (carritoController.listaCarrito.DiccionarioCarrito.Count <= 28)
             {
-                carritoController.listaCarrito.ListaCarroObjetos.Add(Producto);
-                carritoController.ProductoYaExistenteEnElCarrito(NombreProducto, Precio);
+                carritoController.ProductoNuevoEnElCarrito(NombreProducto, Precio, Producto);
+                carritoController.GuardarProductoGameObject(Producto);
             }
             else
             {
-                carritoController.GuardarProductoGameObject(Producto);
-                carritoController.ProductoNuevoEnElCarrito(NombreProducto, Precio);
+                Debug.Log("Carrito lleno");
             }
         }
         else
         {
-            Debug.Log("Carrito lleno");
+            
+            if (carritoController.ProductosEnCarrito.Count <= 28)
+            {
+                
+                carritoController.GuardarProductoGameObject(Producto);
+                carritoController.ProductoYaExistenteEnElCarrito(NombreProducto, Precio, Producto);
+               
+            }
         }
+       
         
 
     }
