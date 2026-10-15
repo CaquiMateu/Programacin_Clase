@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class CarritoController : MonoBehaviour
 {
+    public int ÍndiceDeBusqueda =0;
     public int Cantidad;
     public GameObject Objectolista;
     public ListaCarrito listaCarrito;
@@ -15,7 +16,7 @@ public class CarritoController : MonoBehaviour
     Text ProductoAAñadir;
     public bool CarritoBloqueado = false;
     [SerializeField] int NúmeroEnLaLista = 1;
-        public List<GameObject> ObjetosEnElCarrito;
+    public List<GameObject> ObjetosEnElCarrito;
 
 
     private void Update()
@@ -61,9 +62,10 @@ public class CarritoController : MonoBehaviour
 
     public void ProductoYaExistenteEnElCarrito(string nombre, float precio, GameObject Producto)
     {
-        int NumBuscador = 1;
-        string ProductoABuscar;
+        ÍndiceDeBusqueda = 0;
+        Text ProductoABuscar;
         
+
         if (CarritoBloqueado == true)
         {
             return;
@@ -71,23 +73,20 @@ public class CarritoController : MonoBehaviour
         else
         {
             ObjetosEnElCarrito.Add(Producto);
-            ProductoABuscar = Objectolista.transform.Find("ProductLista N" + NumBuscador).GetComponent<Text>().text;
-            
+            ÍndiceDeBusqueda = ProductosEnCarrito.IndexOf(nombre);
+            ProductoABuscar = Objectolista.transform.Find("ProductLista N" + (ÍndiceDeBusqueda +1)).GetComponent<Text>();
+            Cantidad = ObjetosEnElCarrito.Count(nombreProducto => nombreProducto.name == nombre);
+            ProductoABuscar.text = "x" + Cantidad + " " + nombre + " - $" + (precio *  Cantidad).ToString();
         }
 
-        //if (ProductoABuscar != nombre && NumBuscador < 28)
-        //{
-        //    NumBuscador++;
-        //    ProductoYaExistenteEnElCarrito(nombre, precio);
-        //    return;
-        //}
-        //else
-        //{
-            Cantidad = ObjetosEnElCarrito.Count(nombreProducto => nombreProducto.name == nombre);
-            ProductoAAñadir.text = "x" +  Cantidad + " " + nombre + " - $" + (precio * (1 + Cantidad)).ToString();
-       
+        
+            
+               
 
-        //}
+
+            
+        
+       
     }
 
     public void GuardarProductoGameObject(GameObject producto)

@@ -1001,6 +1001,7 @@ GameObject:
   - component: {fileID: 308935459}
   - component: {fileID: 308935464}
   - component: {fileID: 308935465}
+  - component: {fileID: 308935466}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -1149,6 +1150,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &308935466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308935458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d313385d33203b4995a4c920d84daca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DineroController
+  DineroText: {fileID: 1297593065}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -2531,7 +2545,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 427781432}
   m_Direction: 2
   m_Value: 1.0000023
-  m_Size: 0.38221884
+  m_Size: 0.3822188
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3233,6 +3247,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72a0e5b03e6266141883950c240bd01e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarritoController
+  "\xCDndiceDeBusqueda": 0
+  Cantidad: 0
   Objectolista: {fileID: 1758536850}
   listaCarrito: {fileID: 768895196}
   ProductosEnCarrito: []
@@ -3240,6 +3256,7 @@ MonoBehaviour:
   PreciosEnCarrito: []
   CarritoBloqueado: 0
   "N\xFAmeroEnLaLista": 1
+  ObjetosEnElCarrito: []
 --- !u!114 &768895196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4282,6 +4299,85 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d5b51f3c2762054a9cf03d2b119b21b, type: 3}
+--- !u!1 &1297593063
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1297593064}
+  - component: {fileID: 1297593066}
+  - component: {fileID: 1297593065}
+  m_Layer: 5
+  m_Name: Dinero
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1297593064
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297593063}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1329093840}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 161.99002, y: 317}
+  m_SizeDelta: {x: 362.0201, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1297593065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297593063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: c9f6d0e7bc8541498c9a4799ba184ede, type: 3}
+    m_FontSize: 20
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 300
+    m_Alignment: 2
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 1000000000000000$
+--- !u!222 &1297593066
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297593063}
+  m_CullTransparentMesh: 1
 --- !u!1 &1319133020
 GameObject:
   m_ObjectHideFlags: 0
@@ -4329,7 +4425,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1329093840}
   m_Layer: 5
-  m_Name: ModoAgarre
+  m_Name: UI Jugador
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4350,6 +4446,7 @@ RectTransform:
   - {fileID: 36549734}
   - {fileID: 1616326211}
   - {fileID: 1126648803}
+  - {fileID: 1297593064}
   m_Father: {fileID: 232683457}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -6123,8 +6220,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 602785682}
   m_HandleRect: {fileID: 602785681}
   m_Direction: 2
-  m_Value: 1.0000001
-  m_Size: 0.22592182
+  m_Value: 1
+  m_Size: 0.22592181
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
