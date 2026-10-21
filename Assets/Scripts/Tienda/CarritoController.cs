@@ -101,6 +101,11 @@ public class CarritoController : MonoBehaviour
         }
         
     }
+
+    public void VaciarCarrito()
+    {
+
+    }
     
 
    

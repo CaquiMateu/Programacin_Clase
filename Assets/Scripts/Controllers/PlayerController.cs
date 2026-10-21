@@ -3,6 +3,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Gameobjects")]
+
+    public GameObject Tienda;
+
+    [Header("Bools")]
+
+    [SerializeField] bool TiendaActiva = false;
+
     [Header("Variables de Movimiento")]
     public float SpeedToAply = 4;
     public float MaxSpeed = 4;
@@ -25,13 +33,24 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         pickUpScript = GameObject.Find("Main Camera").GetComponent<PickUpScript>();
-        
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
+            if (Tienda.activeInHierarchy == true)
+            {
+                TiendaActiva = true;
+            }
+            else
+            {
+                TiendaActiva = false;
+            }
+        
+        
+       
         //Guardar el valor del movimiento en los ejes X & Z
         input = (new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"))).normalized;
         //Es para que se mueva en base al jugador, no en base al mundo. Es decir, para que se mueva donde mira
@@ -39,25 +58,33 @@ public class PlayerController : MonoBehaviour
         SpeedToAply = MaxSpeed - (rb.linearVelocity.magnitude);
 
        
-
-        if (pickUpScript.Rotando == false)
+        if (TiendaActiva == false)
         {
-            //Rotación Horizontal
-            transform.Rotate(new Vector3(0, Input.GetAxisRaw("Mouse X") * rotationSpeed, 0));
+            if (pickUpScript.Rotando == false)
+            {
+                //Rotación Horizontal
+                transform.Rotate(new Vector3(0, Input.GetAxisRaw("Mouse X") * rotationSpeed, 0));
 
-            
 
-            //Rotación Vertical
-            xrotationpivot -= Input.GetAxisRaw("Mouse Y") * rotationSpeed;
-            xrotationpivot = Mathf.Clamp(xrotationpivot, -90, 90);
-            pivot.localEulerAngles = new Vector3(xrotationpivot, 0, 0);
+
+                //Rotación Vertical
+                xrotationpivot -= Input.GetAxisRaw("Mouse Y") * rotationSpeed;
+                xrotationpivot = Mathf.Clamp(xrotationpivot, -90, 90);
+                pivot.localEulerAngles = new Vector3(xrotationpivot, 0, 0);
+            }
         }
+        
        
 
     }
 
     private void FixedUpdate()
     {
+        if (TiendaActiva== true)
+        {
+            return;
+        }
+
         //Ahora se mueve mediado de la física, para que se pueda hacer colisiones y demás. Se le aplica una fuerza al rigidbody del jugador
         //la cual se límita a una velocidad máxima. Se multiplica por Time.deltaTime para que la fuerza sea consistente sin importar los FPS
         if (rb.linearVelocity.magnitude <= MaxSpeed)
