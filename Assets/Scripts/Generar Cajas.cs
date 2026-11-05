@@ -7,6 +7,7 @@ public class GenerarCajas : MonoBehaviour
     public CajaController cajacontroller;
     public GameObject cajaGenerada;
     public Transform playerPos;
+    
     GameObject cajaRecogida;
 
 
@@ -33,7 +34,9 @@ public class GenerarCajas : MonoBehaviour
         playerPos = GameObject.FindGameObjectWithTag("Player").transform;
 
         cajaRecogida = Instantiate(cajaGenerada, new Vector3 ( (playerPos.position.x +(transform.position.x - playerPos.position.x)) / 2 , 1.38f, (playerPos.position.z +(transform.position.z - playerPos.position.z))/2), Quaternion.identity);
-       
+        cajaRecogida.GetComponent<CajaController>().SePuedeColocar = true;
+        cajaRecogida.GetComponent<CajaController>().Agarrado = false;
+        cajaRecogida.GetComponent<Rigidbody>().isKinematic = false;
         cajaRecogida.layer = 0;
         StartCoroutine(EsperaMínima());
         

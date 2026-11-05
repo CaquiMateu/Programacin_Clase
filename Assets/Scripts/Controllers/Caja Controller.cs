@@ -6,6 +6,7 @@ public class CajaController : MonoBehaviour
     [Header("Variables Numéricas")]
     public int Cantidad_Productos_MAX = 0;
     public int Cantidad_Productos_ACTUAL = 0;
+    float TiempoDeEspera = 5; // Tiempo de espera en segundos
 
     [Header("Variables de Posición")]
     public Transform EstantePos;
@@ -15,6 +16,7 @@ public class CajaController : MonoBehaviour
     public bool Agarrado = false;
     public bool DiferenteProducto = false;
     public bool SePuedeColocar = true;
+    public bool vacía = false;
 
     [Header("Variables de Texto")]
     public string NombreCaja;
@@ -33,8 +35,36 @@ public class CajaController : MonoBehaviour
     }
     void Update()
     {
+        //Destruir la caja si no tiene productos
+        if (Cantidad_Productos_ACTUAL <= 0)
+        {
 
-        
+
+            vacía = true;
+            
+            if (vacía == true)
+            {
+
+                if (Agarrado == false)
+                {
+                    if (TiempoDeEspera <= 0)
+                    {
+                        Destroy(gameObject);
+                    }
+                    else
+                    {
+                        TiempoDeEspera -= 1 * Time.deltaTime;
+                    }
+                }
+
+            }
+        }
+        else
+        {
+            TiempoDeEspera = 5;
+            vacía = false;
+        }
+
         // Variable para evitar que se instancien múltiples productos al mismo tiempo
         bool Antibucle = false;
 

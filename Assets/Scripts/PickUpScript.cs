@@ -227,8 +227,12 @@ public class PickUpScript : MonoBehaviour
 
                                     if (estanteController.vacio == false && cajaController.Cantidad_Productos_MAX > cajaController.Cantidad_Productos_ACTUAL)
                                     {
-                                        cajaController.Cantidad_Productos_ACTUAL++;
-                                        estanteController.RetirarProductoDelEstante();
+                                        if (cajaController.DiferenteProducto == false)
+                                        {
+                                            cajaController.Cantidad_Productos_ACTUAL++;
+                                            estanteController.RetirarProductoDelEstante();
+                                        }
+                                        
                                     }
 
                                     
