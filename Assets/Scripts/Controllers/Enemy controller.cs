@@ -4,6 +4,7 @@ using UnityEngine.AI;
 using Unity.VisualScripting;
 using System.ComponentModel.Design.Serialization;
 using System;
+using System.Collections;
 
 public class Enemycontroller : MonoBehaviour
 {
@@ -19,6 +20,14 @@ public class Enemycontroller : MonoBehaviour
     [SerializeField] private Transform detectedTarget;
 
     private Transform chaseTarget;
+
+    [Header("Combat")]
+    [SerializeField] private GameObject attackHitbox;
+    [SerializeField] private float attackTime;
+    [SerializeField] private float attackDistance;
+    [SerializeField] private float attackSpeed;
+    private bool CanAttack = true;
+    [SerializeField] private float lookAtSpeed;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -37,6 +46,16 @@ public class Enemycontroller : MonoBehaviour
         if(chaseTarget != null)
         {
             agent.SetDestination(chaseTarget.position);
+
+            if (agent.remainingDistance <= attackDistance)
+            {
+                LookAtPlayer();
+                if (CanAttack == true)
+                {
+                    Attack();
+                }
+               
+            }
         }
     }
     void Detect()
@@ -76,10 +95,41 @@ public class Enemycontroller : MonoBehaviour
             chaseTarget = detectedTarget;
         }
     }
+    void Attack()
+    {
+        StartCoroutine(AttackCrt());
+    }
+
+    IEnumerator AttackCrt()
+    {
+        CanAttack = false;
+        attackHitbox.SetActive(true);
+        yield return new WaitForSeconds(attackTime);
+        attackHitbox.SetActive(false);
+        yield return new WaitForSeconds(attackSpeed - attackTime);
+        CanAttack = true;
+    }
+
+    void LookAtPlayer()
+    {
+        Vector3 DirectionToTarget = chaseTarget.position - transform.position;
+        DirectionToTarget.y = 0;
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(DirectionToTarget), Time.deltaTime * lookAtSpeed);
+    }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, DetectionRange);
+        Gizmos.color = Color.burlywood;
+        Gizmos.DrawWireSphere(transform.position, attackDistance);
+
+        if(agent != null)
+        {
+            Gizmos.color = Color.rebeccaPurple;
+            Gizmos.DrawWireSphere(transform.position, agent.stoppingDistance);
+        }
+       
     }
 }
