@@ -21,6 +21,7 @@ public class EstanteController : MonoBehaviour
 
     [Header("Variables Numéricas")]
     public int posicionActual = 0;
+    Vector3 rotación;
 
     [Header("Bools")]
     public bool lleno = false;
@@ -33,6 +34,7 @@ public class EstanteController : MonoBehaviour
 
     void Start()
     {
+        rotación = transform.rotation.eulerAngles;
         Vacío = vacíoController.gameObject;
         generarcajas = GetComponent<GenerarCajas>();
         // Establecer el tamaño del array de productos en estante según la cantidad de espacios disponibles
@@ -121,7 +123,7 @@ public class EstanteController : MonoBehaviour
                 VacioInstanciado.name = vacíoController.nombre + posicionActual;
                 VacioInstanciado.transform.SetParent(this.gameObject.transform);
                 // Instanciar el producto en la posición correspondiente del estante
-                ProductoHijoDeVacio = Instantiate(productoInstaurado, EspaciosParaProductos[posicionActual].position,Quaternion.Euler(0,90,0));
+                ProductoHijoDeVacio = Instantiate(productoInstaurado, EspaciosParaProductos[posicionActual].position,Quaternion.Euler(rotación + new Vector3(0,90,0)));
                 ProductoHijoDeVacio.transform.SetParent(VacioInstanciado.transform);
                 // Aumentar el índice de posición actual para el siguiente producto
                 SumarÍndice();

@@ -18,6 +18,7 @@ public class PickUpScript : MonoBehaviour
     public GameObject ObjNamePanel;
     public Image Puntero;
     Color OriginalPunteroColor;
+
     [Header("GameObjects")]
     public GameObject player;
     public GameObject ObjAgarrado;
@@ -155,6 +156,13 @@ public class PickUpScript : MonoBehaviour
                         }
                        }
                        
+                    }
+
+                    if (hit.transform.gameObject.tag == "EtiquetaPrecio")
+                    {
+
+                     Debug.Log("Auch");
+                     
                     }
 
             }
