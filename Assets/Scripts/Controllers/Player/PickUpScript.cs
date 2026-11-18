@@ -38,6 +38,7 @@ public class PickUpScript : MonoBehaviour
     public bool Rotando = false;
     public float TiempoActualDeCarga = 1f;
     bool isCharging = false;
+    [SerializeField] private bool EtiquetaPrecioDetectada = false;
     RaycastHit hit;
 
     #endregion
@@ -161,8 +162,18 @@ public class PickUpScript : MonoBehaviour
                     if (hit.transform.gameObject.tag == "EtiquetaPrecio")
                     {
 
-                     Debug.Log("Auch");
+                      if (EtiquetaPrecioDetectada == false)
+                      {
+                        EtiquetaPrecioDetectada = true;
+                      }
+                      
                      
+                    }
+                    else 
+                    {
+
+                      EtiquetaPrecioDetectada = false;
+
                     }
 
             }

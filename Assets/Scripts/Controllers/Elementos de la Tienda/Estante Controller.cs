@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EstanteController : MonoBehaviour
@@ -31,6 +32,10 @@ public class EstanteController : MonoBehaviour
     [Header("Variables de Texto")]
 
     public string nombreDelProductoEnEstante;
+
+    [Header("Productos")]
+
+    [SerializeField] private float PrecioDelProducto;
 
     void Start()
     {
