@@ -109,6 +109,19 @@ public class PickUpScript : MonoBehaviour
                             ObjNamePanel.SetActive(true);
                         }
 
+                        
+
+                        if (hit.transform.gameObject.tag == "EtiquetaPrecio")
+                        {
+                          
+                          EtiquetaDePrecio etiquetaDePrecio = hit.transform.gameObject.GetComponent<EtiquetaDePrecio>();
+                          
+                          etiquetaDePrecio.GenerarPanel();
+
+
+
+
+                        }
 
                     }
                 }

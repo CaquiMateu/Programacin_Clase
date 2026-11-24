@@ -35,7 +35,9 @@ public class EstanteController : MonoBehaviour
 
     [Header("Productos")]
 
-    [SerializeField] private float PrecioDelProducto;
+    [SerializeField] private float PrecioDelProductoBase;
+    private ProductoController productoController;
+    public float PrecioDelProducto;
 
     void Start()
     {
@@ -57,6 +59,7 @@ public class EstanteController : MonoBehaviour
         if (cajaController != generarcajas.cajacontroller)
         {
             cajaController = generarcajas.cajacontroller;
+            PrecioDelProductoBase = cajaController.Producto.GetComponent<ProductoController>().valorDelProducto;
         }
         #endregion
 
@@ -169,6 +172,8 @@ public class EstanteController : MonoBehaviour
     {
         posicionActual--;
     }
+
+    
 
    
     

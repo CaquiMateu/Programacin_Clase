@@ -154,5 +154,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProductoController
   NombreProducto: Cajetilla de cigarros
-  valorDelProducto: 0
+  valorDelProducto: 10
   ModoEstante: {fileID: 4038051594352464088, guid: 23a93b27c5bb2534ca26e096060587b9, type: 3}
