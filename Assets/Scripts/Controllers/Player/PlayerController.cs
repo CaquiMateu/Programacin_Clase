@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 
@@ -5,11 +6,11 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Gameobjects")]
 
-    public GameObject Tienda;
+    public GameObject[] PanelesUI;
 
     [Header("Bools")]
 
-    [SerializeField] bool TiendaActiva = false;
+    public bool panelActivo = false;
 
     [Header("Variables de Movimiento")]
     public float SpeedToAply = 4;
@@ -33,23 +34,13 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         pickUpScript = GameObject.Find("Main Camera").GetComponent<PickUpScript>();
-       
+        StartCoroutine(DetectarPanelesActivos());
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-            if (Tienda.activeInHierarchy == true)
-            {
-                TiendaActiva = true;
-            }
-            else
-            {
-                TiendaActiva = false;
-            }
-        
-        
        
         //Guardar el valor del movimiento en los ejes X & Z
         input = (new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"))).normalized;
@@ -58,7 +49,7 @@ public class PlayerController : MonoBehaviour
         SpeedToAply = MaxSpeed - (rb.linearVelocity.magnitude);
 
        
-        if (TiendaActiva == false)
+        if (panelActivo == false)
         {
             if (pickUpScript.Rotando == false)
             {
@@ -80,7 +71,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (TiendaActiva== true)
+        if (panelActivo== true)
         {
             return;
         }
@@ -93,5 +84,29 @@ public class PlayerController : MonoBehaviour
         }
 
         
+    }
+
+    IEnumerator DetectarPanelesActivos()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        
+
+        for (int i = 0; i < PanelesUI.Length; i++)
+        {
+            if (PanelesUI[i].activeInHierarchy == true)
+            {
+                
+                panelActivo = true;
+                break;
+            }
+            else
+            {
+                panelActivo = false;
+            }
+            
+        }
+
+        StartCoroutine(DetectarPanelesActivos());
     }
 }

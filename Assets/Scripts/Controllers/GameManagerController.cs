@@ -3,10 +3,11 @@ using UnityEngine;
 public class GameManagerController : MonoBehaviour
 {
 
-    public GameObject Tienda;
-
+    public PlayerController playerController;
+    
     void Start()
     {
+        playerController = GameObject.Find("player").GetComponent<PlayerController>();
         //Bloquea el ratón en el centro de la pantalla
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -18,7 +19,7 @@ public class GameManagerController : MonoBehaviour
     {
         #region Recuperar el ratón con Escape
         // Opcional: Si el jugador pulsa Escape, recupera el ratón (útil para menús de pausa)
-        if (Tienda.activeInHierarchy == true)
+        if (playerController.panelActivo == true)
         {
             // Desbloquea y vuelve a mostrar el cursor
             Cursor.lockState = CursorLockMode.None;
@@ -37,13 +38,14 @@ public class GameManagerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.H))
         {
-            if (Tienda.activeInHierarchy == false)
+            if (playerController.panelActivo == false)
             {
-                Tienda.SetActive(true);
+                playerController.PanelesUI[0].SetActive(true);
             }
-            else if (Tienda.activeInHierarchy == true)
+            else if (playerController.panelActivo == true)
             {
-                Tienda.SetActive(false);
+                playerController.PanelesUI[0].SetActive(false);
+               
             }
 
         }
