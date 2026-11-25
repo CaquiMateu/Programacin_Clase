@@ -220,8 +220,12 @@ public class PickUpScript : MonoBehaviour
                                 // Obtener el componente EstanteController del estante detectado
                                 estanteController = hit.transform.gameObject.GetComponent<EstanteController>();
                                 generarCajas = hit.transform.gameObject.GetComponent<GenerarCajas>();
-                               //Detecta si el estante está vacío
-                               if (estanteController.vacio == true)
+                                //Detecta si el estante está vacío
+
+                              // Actualizar la posición del estante en el controlador de la caja
+                              cajaController.EstantePos = hit.transform;  
+
+                            if (estanteController.vacio == true)
                                {
                                 //Ahora analiza si tiene un cajacontroller, si lo tiene le cambia el scirpt a una caja que se generará a lo lejos
                                 //Esto es para evitar posibles problemas de null reference
@@ -279,8 +283,7 @@ public class PickUpScript : MonoBehaviour
 
                                }
 
-                               // Actualizar la posición del estante en el controlador de la caja
-                               cajaController.EstantePos = hit.transform;
+                               
 
                                 // Verificar si el estante existe y si no está lleno para permitir la interacción con la caja
                                 if (estanteController != null)

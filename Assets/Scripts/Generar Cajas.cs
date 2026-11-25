@@ -24,8 +24,8 @@ public class GenerarCajas : MonoBehaviour
         {
             cajaGenerada = Instantiate(estantecontroller.cajaController.gameObject, transform.position + new Vector3(200000, 200000, 200000), Quaternion.identity);
             cajacontroller = cajaGenerada.GetComponent<CajaController>();
-            
-           
+            estantecontroller.PrecioDelProductoBase = cajacontroller.Producto.GetComponent<ProductoController>().valorDelProducto;
+            estantecontroller.PrecioDelProducto = 0;
         }
     }
 
