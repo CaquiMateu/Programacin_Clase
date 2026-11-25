@@ -31,8 +31,13 @@ public class EtiquetaDePrecio : MonoBehaviour
                 estanteController.PrecioDelProducto = 0;
                 return;
             }
+            else if (estanteController.PrecioDelProducto == 0)
+            {
+                TextoInput.text = estanteController.PrecioDelProducto.ToString();
+                return;
+            }
+
                estanteController.PrecioDelProducto = float.Parse(TextoInput.text);
-                Debug.Log("Hola");
             
             
         }
@@ -52,6 +57,8 @@ public class EtiquetaDePrecio : MonoBehaviour
         }
         if (panelPrecio.activeInHierarchy == false)
         {
+            Text TextoInput = panelPrecio.transform.Find("InputField").GetComponent<InputField>().textComponent;
+            TextoInput.text = estanteController.PrecioDelProducto.ToString();
             panelPrecio.SetActive(true);
         }
         else

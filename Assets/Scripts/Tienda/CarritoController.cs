@@ -77,7 +77,7 @@ public class CarritoController : MonoBehaviour
             ÍndiceDeBusqueda = ProductosEnCarrito.IndexOf(nombre);
             PreciosEnCarrito.Add(precio);
             ProductoABuscar = Objectolista.transform.Find("ProductLista N" + (ÍndiceDeBusqueda +1)).GetComponent<Text>();
-               Cantidad = ObjetosEnElCarrito.Count(nombreProducto => nombreProducto.name == nombre);
+            Cantidad = ObjetosEnElCarrito.Count(nombreProducto => nombreProducto.name == nombre);
             ProductoABuscar.text = "x" + Cantidad + " " + nombre + " - $" + (precio *  Cantidad).ToString();
         }
 

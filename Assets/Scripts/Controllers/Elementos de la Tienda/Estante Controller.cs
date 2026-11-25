@@ -35,7 +35,7 @@ public class EstanteController : MonoBehaviour
 
     [Header("Productos")]
 
-    [SerializeField] private float PrecioDelProductoBase;
+    [SerializeField] public float PrecioDelProductoBase;
     private ProductoController productoController;
     public float PrecioDelProducto;
 
@@ -98,6 +98,11 @@ public class EstanteController : MonoBehaviour
         }
 
         #endregion
+
+        if (vacio == true && PrecioDelProducto != 0)
+        {
+            PrecioDelProducto = 0;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
