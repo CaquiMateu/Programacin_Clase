@@ -12,6 +12,8 @@ public class EtiquetaDePrecio : MonoBehaviour
     public GameObject panelPrecio;
     Text TextoInput;
     Text TextoProducto;
+    Text DiferenciaVenta;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,6 +21,7 @@ public class EtiquetaDePrecio : MonoBehaviour
         estanteController = ObjetoPadre.GetComponent<EstanteController>();
         TextoInput = panelPrecio.transform.Find("InputField").GetComponent<InputField>().textComponent;
         TextoProducto = panelPrecio.transform.Find("TextoProducto").GetComponent<Text>();
+        DiferenciaVenta = panelPrecio.transform.Find("DiferenciaVenta").GetComponent<Text>();
 
     }
 
@@ -29,8 +32,10 @@ public class EtiquetaDePrecio : MonoBehaviour
 
         if (estanteController.vacio == false && panelPrecio.activeInHierarchy == true)
         {
-            
-           
+            float diferencial;
+            float precioMercado = estanteController.PrecioDelProductoBase;
+            float precioJugador = estanteController.PrecioDelProducto;
+
             if (TextoInput.text == "")
             {
                 estanteController.PrecioDelProducto = 0;
@@ -39,8 +44,27 @@ public class EtiquetaDePrecio : MonoBehaviour
            
 
                estanteController.PrecioDelProducto = float.Parse(TextoInput.text);
-            
-            
+               
+            diferencial = ((precioJugador - precioMercado) / precioMercado) * 100;
+
+            if (diferencial > 0)
+            {
+                DiferenciaVenta.text = "El precio de venta es " + diferencial.ToString("F2") + "% mayor al precio de mercado";
+            }
+            else if (diferencial < 0 && precioJugador != 0)
+            {
+                DiferenciaVenta.text = "El precio de venta es " + Math.Abs(diferencial).ToString("F2") + "% menor al precio de mercado";
+            }
+            else if (diferencial == 0)
+            {
+                DiferenciaVenta.text = "El precio de venta es igual al precio de mercado";
+            }
+            else if (precioJugador == 0 || TextoInput.text == "")
+            {
+                DiferenciaVenta.text = "El precio de venta no ha sido establecido";
+            }
+
+
         }
         if (panelPrecio.activeInHierarchy == true && Input.GetKeyDown(KeyCode.Escape))
         {

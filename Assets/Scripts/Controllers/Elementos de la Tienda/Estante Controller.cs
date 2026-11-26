@@ -15,6 +15,7 @@ public class EstanteController : MonoBehaviour
     [Header("GameObjects")]
     public GameObject Vacío;
     GameObject ProductoHijoDeVacio;
+    GameObject PuntoDeVenta;
 
    [Header("Arrays")]
     public Transform[] EspaciosParaProductos;
@@ -41,6 +42,7 @@ public class EstanteController : MonoBehaviour
 
     void Start()
     {
+        PuntoDeVenta = transform.Find("Punto De Venta").gameObject;
         rotación = transform.rotation.eulerAngles;
         Vacío = vacíoController.gameObject;
         generarcajas = GetComponent<GenerarCajas>();
@@ -54,7 +56,7 @@ public class EstanteController : MonoBehaviour
     void Update()
     {
         #region Igualar Caja Controller
-        
+
         //Actualiza el cajacontroller si detecta que es diferente al que debería tener;
         if (cajaController != generarcajas.cajacontroller)
         {
@@ -73,7 +75,7 @@ public class EstanteController : MonoBehaviour
         else
         {
             vacio = false;
-            
+
         }
 
         if (vacio == true)
@@ -103,7 +105,17 @@ public class EstanteController : MonoBehaviour
         {
             PrecioDelProducto = 0;
         }
+        if (vacio == true)
+        {
+            PuntoDeVenta.SetActive(false);
+
+        }
+        else
+        {
+            PuntoDeVenta.SetActive(true);
+        }
     }
+
 
     private void OnTriggerEnter(Collider other)
     {

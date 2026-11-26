@@ -7,6 +7,7 @@ TagManager:
   - CanPickUp
   - Estante
   - EtiquetaPrecio
+  - PuntoDeVenta
   layers:
   - Default
   - TransparentFX
