@@ -10,32 +10,33 @@ public class EtiquetaDePrecio : MonoBehaviour
     [SerializeField] EstanteController estanteController;
     [SerializeField] public Text precio;
     public GameObject panelPrecio;
-
+    Text TextoInput;
+    Text TextoProducto;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         ObjetoPadre = transform.parent.gameObject;
         estanteController = ObjetoPadre.GetComponent<EstanteController>();
+        TextoInput = panelPrecio.transform.Find("InputField").GetComponent<InputField>().textComponent;
+        TextoProducto = panelPrecio.transform.Find("TextoProducto").GetComponent<Text>();
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+
         if (estanteController.vacio == false && panelPrecio.activeInHierarchy == true)
         {
-            Text TextoInput = panelPrecio.transform.Find("InputField").GetComponent<InputField>().textComponent;
+            
            
             if (TextoInput.text == "")
             {
                 estanteController.PrecioDelProducto = 0;
                 return;
             }
-            else if (estanteController.PrecioDelProducto == 0)
-            {
-                TextoInput.text = estanteController.PrecioDelProducto.ToString();
-                return;
-            }
+           
 
                estanteController.PrecioDelProducto = float.Parse(TextoInput.text);
             
@@ -57,12 +58,15 @@ public class EtiquetaDePrecio : MonoBehaviour
         }
         if (panelPrecio.activeInHierarchy == false)
         {
-            Text TextoInput = panelPrecio.transform.Find("InputField").GetComponent<InputField>().textComponent;
+            
             TextoInput.text = estanteController.PrecioDelProducto.ToString();
             panelPrecio.SetActive(true);
+            TextoProducto.text = "El valor de mercado del producto " + estanteController.nombreDelProductoEnEstante + " es " + estanteController.PrecioDelProductoBase.ToString() + "$";
         }
         else
         {
+            
+            TextoInput.text = estanteController.PrecioDelProducto.ToString();
             panelPrecio.SetActive(false);
         }
     }
